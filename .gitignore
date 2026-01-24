@@ -4,5 +4,8 @@
 !nvim/**
 !tmux/
 !tmux/**
+!ghostty/
+!ghostty/config
 !.gitignore
+
 
