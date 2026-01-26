@@ -86,11 +86,19 @@ local function start_watcher(bufnr)
         end
 
         -- Reload the buffer from disk if it's valid and not modified
-        if vim.api.nvim_buf_is_valid(bufnr) and not vim.api.nvim_buf_get_option(bufnr, 'modified') then
+        if vim.api.nvim_buf_is_valid(bufnr) and not vim.bo[bufnr].modified then
             vim.api.nvim_buf_call(bufnr, function()
                 vim.cmd("checktime")
             end)
         end
+
+        -- Restart the watcher since fs_event can become invalid after firing
+        stop_watcher(bufnr)
+        vim.defer_fn(function()
+            if vim.api.nvim_buf_is_valid(bufnr) then
+                start_watcher(bufnr)
+            end
+        end, 100)
     end))
 end
 
