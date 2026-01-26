@@ -15,7 +15,7 @@ local function refresh_git_status()
     end
 end
 
-local on_change = function(err, filename)
+local on_change = function(err, _)
     if err then
         return
     end
@@ -37,3 +37,4 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
         watcher:stop()
     end,
 })
+
