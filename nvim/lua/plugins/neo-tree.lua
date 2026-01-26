@@ -10,6 +10,7 @@ return {
     config = function()
         require("neo-tree").setup({
             hide_root_node = false,
+            git_status_async = true,
             filesystem = {
                 persistent_filter = false,
                 follow_current_file = {
