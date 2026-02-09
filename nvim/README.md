@@ -259,6 +259,13 @@ This configuration is structured for easy customization:
 ```
 ~/.config/nvim/
 ├── init.lua              # Main entry point
+├── after/plugin/         # Runs after all plugins are loaded
+│   ├── formatoptions.lua # Disable auto comment insertion
+│   ├── lsp.lua           # LSP enable, floating preview, message filtering
+│   └── neo-tree.lua      # Git status auto-refresh watcher
+├── lsp/                  # LSP server configs (Neovim 0.11+)
+│   ├── hls.lua
+│   └── lua_ls.lua
 ├── lua/
 │   ├── config/
 │   │   ├── init.lua      # Core configuration and leader key
@@ -282,7 +289,7 @@ This configuration is structured for easy customization:
 │       └── which-key.lua
 ```
 
-To add new plugins, create a new file in `lua/plugins/` that returns a lazy.nvim plugin spec.
+To add new plugins, create a new file in `lua/plugins/` that returns a lazy.nvim plugin spec. LSP server configs go in `lsp/<server_name>.lua`.
 
 ## 📄 License
 

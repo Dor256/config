@@ -46,8 +46,16 @@ vim.api.nvim_create_autocmd("CursorHold", {
     end
 })
 
--- Autosave
--- Simple autosave on leaving insert mode or changing text
+-- Helper to check if we should reload (skip during command-line, replace, select modes)
+local function should_check()
+    local mode = vim.api.nvim_get_mode().mode
+    return not (
+        mode:match('[cR!s]')
+        or vim.fn.getcmdwintype() ~= ''
+    )
+end
+
+-- Autosave on leaving insert mode or changing text
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
     pattern = "*",
     callback = function()
@@ -56,7 +64,6 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
         end
     end,
 })
-
 
 -- Table to keep track of active watchers so we can stop them later
 local active_watchers = {}
@@ -85,8 +92,11 @@ local function start_watcher(bufnr)
             return
         end
 
-        -- Reload the buffer from disk if it's valid and not modified
-        if vim.api.nvim_buf_is_valid(bufnr) and not vim.bo[bufnr].modified then
+        -- Reload the buffer from disk if conditions are met
+        if should_check()
+            and vim.api.nvim_buf_is_valid(bufnr)
+            and not vim.bo[bufnr].modified
+            and vim.bo[bufnr].buftype == '' then
             vim.api.nvim_buf_call(bufnr, function()
                 vim.cmd("checktime")
             end)
@@ -122,8 +132,8 @@ end
 -- 1. Start watching when a file is opened
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
     callback = function(args)
-        start_watcher(args.buf)
         vim.schedule(function()
+            start_watcher(args.buf)
             delete_empty_buffers(args.buf)
         end)
     end,

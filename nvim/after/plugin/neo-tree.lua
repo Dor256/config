@@ -29,6 +29,17 @@ end
 -- Watch the .git directory recursively
 watcher:start(git_dir, { recursive = true }, on_change)
 
+-- Also refresh git status when files are written (working directory changes)
+vim.api.nvim_create_autocmd("BufWritePost", {
+    group = vim.api.nvim_create_augroup("neotree_git_refresh", { clear = true }),
+    callback = function()
+        if debounce_timer then
+            debounce_timer:stop()
+        end
+        debounce_timer = vim.defer_fn(refresh_git_status, 100)
+    end,
+})
+
 vim.api.nvim_create_autocmd("VimLeavePre", {
     callback = function()
         if debounce_timer then

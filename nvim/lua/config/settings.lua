@@ -23,9 +23,16 @@ vim.opt.showcmd = true
 vim.opt.sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,terminal,folds"
 vim.opt.autoread = true
 
--- Auto-reload files when changed externally
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-    command = "checktime",
+-- Auto-reload files when changed externally (fallback for focus/idle events)
+vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "CursorHold", "CursorHoldI" }, {
+    group = vim.api.nvim_create_augroup("hotreload_fallback", { clear = true }),
+    callback = function()
+        local mode = vim.api.nvim_get_mode().mode
+        local should_check = not (mode:match('[cR!s]') or vim.fn.getcmdwintype() ~= '')
+        if should_check then
+            vim.cmd("checktime")
+        end
+    end,
 })
 
 vim.opt.swapfile = false
@@ -57,5 +64,3 @@ vim.opt.showmode = false
 
 vim.opt.mouse = "a"
 
--- No automatic comment insertion
-vim.cmd([[autocmd FileType * set formatoptions-=ro]])
