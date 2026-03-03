@@ -37,6 +37,12 @@ end, { desc = "Previous buffer (skip neo-tree)" })
 -- Bufremove
 vim.keymap.set("n", "<leader>w", function()
     require("mini.bufremove").delete(0, true)
+    vim.schedule(function()
+        local buf = vim.api.nvim_get_current_buf()
+        if vim.api.nvim_buf_get_name(buf) == "" and vim.bo[buf].buftype == "" then
+            vim.cmd("Neotree position=current")
+        end
+    end)
 end, { desc = "Close current buffer and move to next" })
 
 -- Move text

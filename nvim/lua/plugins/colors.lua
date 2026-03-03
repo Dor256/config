@@ -13,9 +13,9 @@ return {
                 hl.GitSignsAdd = { fg = c.green }
                 hl.GitSignsChange = { fg = c.orange }
                 hl.GitSignsDelete = { fg = c.red }
-                hl.Directory = { fg = c.purple }
+                hl.Directory = { fg = c.blue }
                 hl.NeoTreeDirectoryName = { fg = c.fg }
-                hl.NeoTreeRootNane = { fg = c.fg }
+                hl.NeoTreeRootName = { fg = c.fg }
                 hl.NeoTreeCursorLine = { bg = c.bg_highlight }
                 hl.NeoTreeGitUntracked = { fg = c.green }
                 hl.NeoTreeGitModified = { fg = c.yellow }

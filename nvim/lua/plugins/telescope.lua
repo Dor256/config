@@ -1,5 +1,6 @@
 return {
-    'nvim-telescope/telescope.nvim', tag = 'latest',
+    'nvim-telescope/telescope.nvim',
+    version = "*",
     dependencies = {
         'nvim-lua/plenary.nvim',
         -- optional but recommended

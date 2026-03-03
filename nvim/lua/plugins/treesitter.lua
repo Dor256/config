@@ -27,7 +27,7 @@ return {
         },
 
         sync_install = false,
-        auto_install = true,
+        auto_install = false,
 
         highlight = {
             enable = true,
@@ -36,7 +36,7 @@ return {
 
         indent = {
             enable = true,
-            disable = { "python", "c" },
+            disable = { "c" },
         },
     },
 

@@ -10,6 +10,7 @@ if first_arg ~= "" then
 else
     vim.g.cwd_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 end
+
 require("config.lazy")
 require("config.settings")
 require("config.keymaps")
