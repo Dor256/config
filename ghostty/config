@@ -6,5 +6,7 @@ window-padding-y = 0
 font-thicken = true
 window-padding-balance = true
 macos-titlebar-proxy-icon = hidden
-title = "Ghostty"
+title = "👻 Ghostty"
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+quick-terminal-position = bottom
 

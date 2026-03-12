@@ -54,6 +54,11 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 -- Format file
 vim.keymap.set("n", "<leader>r", function()
+    vim.lsp.buf.format({ async = true })
+end, { desc = "Format file according to LSP rules" })
+
+-- Indent selection
+vim.keymap.set("n", "<leader>ri", function ()
     local view = vim.fn.winsaveview()
     vim.cmd("normal! ggVG=")
     vim.fn.winrestview(view)
