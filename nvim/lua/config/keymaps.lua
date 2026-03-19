@@ -83,11 +83,13 @@ vim.keymap.set("v", "<leader>\'", '"zc\'<C-r>z\'<Esc>', { desc = "Wrap selected 
 
 -- Picker search
 -- Search for a file
-vim.keymap.set("n", "<leader>ff", function() telescope.find_files() end, { desc = "Search files" })
+vim.keymap.set("n", "<leader>ff", telescope.find_files, { desc = "Search files" })
 -- Search for an occurrence
-vim.keymap.set("n", "<leader>fg", function() telescope.live_grep() end, { desc = "Search occurrence" })
+vim.keymap.set("n", "<leader>fg", telescope.live_grep, { desc = "Search occurrence" })
 -- Search for git conflicts
-vim.keymap.set("n", "<leader>fc", function() telescope.git_status() end, { desc = "Search git conflicts" })
+vim.keymap.set("n", "<leader>fc", telescope.git_status, { desc = "Search git conflicts" })
+-- Search open buffers
+vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "Search open buffers" })
 
 -- Terminal
 -- Allow <Esc> to enter normal mode in terminal for browsing output
