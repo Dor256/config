@@ -67,6 +67,7 @@ Fuzzy finder for files, text, and more with:
 - File search and live grep
 - LSP integration (implementations, references)
 - Git status search
+- Open buffers search
 
 ### Git Integration
 
@@ -141,6 +142,7 @@ Leader key is set to `<Space>`.
 | `<leader>ff` | Normal | Search for files |
 | `<leader>fg` | Normal | Search for text/grep in files |
 | `<leader>fc` | Normal | Search git conflicts/status |
+| `<leader>fb` | Normal | Search open buffers |
 
 ### Buffer Management
 
