@@ -1,6 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     build = ":TSUpdate",
 
     opts = {
@@ -28,12 +28,6 @@ return {
 
         sync_install = false,
         auto_install = false,
-
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-        },
-
         indent = {
             enable = true,
             disable = { "c" },
@@ -41,7 +35,14 @@ return {
     },
 
     config = function(_, opts)
-        require("nvim-treesitter.configs").setup(opts)
+        require("nvim-treesitter").setup(opts)
+        vim.api.nvim_create_autocmd('FileType', {
+            callback = function()
+                -- Enable treesitter higlighting and disable regex syntax
+                pcall(vim.treesitter.start)
+                -- Enable treesitter based indentation
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end,
+        })
     end,
 }
-
