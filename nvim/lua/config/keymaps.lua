@@ -7,33 +7,6 @@ vim.keymap.set("n", "<leader>o", function()
     vim.cmd("Neotree toggle")
 end, { desc = "Toggle focus between Neo-tree and Editor" })
 
--- Tabs Keymaps with neo-tree filtering
-vim.keymap.set('n', '<Tab>', function()
-    local start_buf = vim.fn.bufnr()
-    vim.cmd('bnext')
-    -- Keep cycling if we land on neo-tree
-    local count = 0
-    while vim.bo.filetype == 'neo-tree' and count < 50 do
-        vim.cmd('bnext')
-        count = count + 1
-        -- If we've cycled back to start, break
-        if vim.fn.bufnr() == start_buf then break end
-    end
-end, { desc = "Next buffer (skip neo-tree)" })
-
-vim.keymap.set('n', '<S-Tab>', function()
-    local start_buf = vim.fn.bufnr()
-    vim.cmd('bprevious')
-    -- Keep cycling if we land on neo-tree
-    local count = 0
-    while vim.bo.filetype == 'neo-tree' and count < 50 do
-        vim.cmd('bprevious')
-        count = count + 1
-        -- If we've cycled back to start, break
-        if vim.fn.bufnr() == start_buf then break end
-    end
-end, { desc = "Previous buffer (skip neo-tree)" })
-
 -- Bufremove
 vim.keymap.set("n", "<leader>w", function()
     require("mini.bufremove").delete(0, true)
@@ -48,6 +21,8 @@ end, { desc = "Close current buffer and move to next" })
 -- Move text
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move highlighted text down 1 line" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move highlighted text up 1 line" })
+vim.keymap.set("v", "<Tab>", ">gv", { desc = "Indent selection" })
+vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Outdent selection" })
 
 -- Replace highlited text everywhere
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace highlighted text everywhere" })
