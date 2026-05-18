@@ -13,6 +13,7 @@ vim.opt.listchars = {
     precedes = "<",
 }
 vim.opt.laststatus = 3
+vim.opt.wrap = false
 
 vim.opt.number = true
 vim.opt.relativenumber = true

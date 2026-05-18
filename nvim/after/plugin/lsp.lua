@@ -8,7 +8,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 -- Enable servers
-vim.lsp.enable({ "hls", "lua_ls", "ts_ls", "pyright", "eslint", "gopls" })
+vim.lsp.enable({ "hls", "lua_ls", "ts_ls", "basedpyright", "eslint", "gopls" })
 
 -- Filter noisy LSP messages
 vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)

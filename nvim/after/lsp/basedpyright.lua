@@ -1,6 +1,6 @@
 return {
   -- Prefer the repository root over nested Python package roots. This keeps
-  -- workspace venvs like ~/dev/evaluation/.venv visible to Pyright.
+  -- workspace venvs like ~/dev/evaluation/.venv visible to basedpyright.
   root_markers = {
     "pyrightconfig.json",
     ".git",
@@ -21,13 +21,17 @@ return {
     end
   end,
   settings = {
-    python = {
+    basedpyright = {
       analysis = {
+        autoImportCompletions = true,
         autoSearchPaths = true,
-        useLibraryCodeForTypes = true,
         diagnosticMode = "workspace",
+        indexing = true,
+        typeCheckingMode = "standard",
       },
-      -- Pyright resolves "venv" relative to "venvPath".
+    },
+    python = {
+      -- basedpyright resolves "venv" relative to "venvPath".
       venvPath = ".",
       venv = ".venv",
     },
