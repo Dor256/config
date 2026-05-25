@@ -13,11 +13,13 @@ return {
                 initial_mode = "normal",
                 mappings = {
                     n = {
-                        ["<C-d>"] = actions.delete_buffer
+                        ["<C-d>"] = actions.delete_buffer,
+                        ["<C-f>"] = actions.preview_scrolling_down,
                     },
                     i = {
                         ["<C-h>"] = "which_key",
                         ["<C-d>"] = actions.delete_buffer,
+                        ["<C-f>"] = actions.preview_scrolling_down,
                     },
                 },
             },
