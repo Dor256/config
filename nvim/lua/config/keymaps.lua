@@ -76,3 +76,46 @@ vim.keymap.set("n", "<leader>?", function() require("which-key").show({ global =
 -- Insert mode
 vim.keymap.set("i", "<S-Tab>", "<C-d>", { silent = true, desc = "Outdent line" })
 
+-- Coding agents
+vim.keymap.set("n", "<leader>ll", function()
+    local line_number = vim.fn.line(".")
+    local file_path = vim.fn.expand("%:.")
+    if file_path == "" then
+        print("Error: document has no file path")
+        return
+    end
+    local file_link = string.format("@%s:%d", file_path, line_number)
+
+    -- Copy to system clipboard
+    vim.fn.setreg("+", file_link)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+    print("Copied file selection link " .. file_link)
+end,
+{ desc = "Copy reference to file line number at cursor" })
+
+vim.keymap.set("v", "<leader>ll", function()
+    local start_line = vim.fn.line("v")
+    local end_line = vim.fn.line(".")
+    local start_col = vim.fn.col("v")
+    local end_col = vim.fn.col(".")
+    if start_line > end_line then
+        start_line, end_line = end_line, start_line
+    end
+    local file_path = vim.fn.expand("%:.")
+    if file_path == "" then
+        print("Error: document has no file path")
+        return
+    end
+    local file_link
+    if start_line == end_line then
+        file_link = string.format("@%s:%d:%d-%d", file_path, start_line, start_col, end_col)
+    else
+        file_link = string.format("@%s:%d-%d", file_path, start_line, end_line)
+    end
+
+    -- Copy to system clipboard
+    vim.fn.setreg("+", file_link)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+    print("Copied file selection link " .. file_link)
+end,
+{ desc = "Copy reference to file + line numbers in selection" })

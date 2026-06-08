@@ -19,7 +19,18 @@ return {
                 vim.keymap.set("n", "<leader>gi", telescope.lsp_implementations, vim.tbl_extend("force", opts, { desc = "LSP jump to implementation" }))
                 vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, vim.tbl_extend("force", opts, { desc = "LSP jump to type definition" }))
                 vim.keymap.set("n", "<leader>gr", telescope.lsp_references, vim.tbl_extend("force", opts, { desc = "LSP jump to references" }))
-                vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "LSP Code Action" }))
+                vim.keymap.set({ "n", "v" }, "<leader>ca", function()
+                    vim.lsp.buf.code_action()
+                end, vim.tbl_extend("force", opts, { desc = "LSP Code Action" }))
+
+                vim.keymap.set("n", "<leader>cA", function()
+                    vim.lsp.buf.code_action({
+                        context = {
+                            only = { "source" },
+                            diagnostics = vim.diagnostic.get(bufnr),
+                        },
+                    })
+                end, vim.tbl_extend("force", opts, { desc = "LSP Source Action" }))
 
                 -- ESLint-specific: auto-fix on save
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
