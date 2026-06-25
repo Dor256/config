@@ -119,3 +119,8 @@ vim.keymap.set("v", "<leader>ll", function()
     print("Copied file selection link " .. file_link)
 end,
 { desc = "Copy reference to file + line numbers in selection" })
+
+-- Undo override
+vim.keymap.set("n", "<C-u>", "u", { noremap = true, desc = "Undo" })
+-- Disable undo with u
+vim.keymap.set("n", "u", "<Nop>", { noremap = true })
