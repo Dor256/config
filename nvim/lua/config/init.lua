@@ -59,6 +59,7 @@ end
 -- Autosave on leaving insert mode or changing text
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
     pattern = "*",
+    nested = true,
     callback = function()
         if vim.bo.modifiable and vim.fn.bufname() ~= "" then
             vim.cmd("silent! update")
